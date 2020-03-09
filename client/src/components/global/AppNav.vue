@@ -37,12 +37,23 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     computed: {
       ...mapGetters({
         authenticated: 'auth/authenticated'
       })
+    },
+    methods: {
+      ...mapActions({
+        signOutAction: 'auth/signOut'
+      }),
+
+      async signOut () {
+        await this.signOutAction()
+
+        this.$router.replace({ name: 'home' })
+      }
     }
   }
 </script>
