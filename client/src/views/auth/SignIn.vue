@@ -4,18 +4,18 @@
             Sign in.
         </h1>
 
-        <form action="#" method="post" class="bg-white rounded-lg p-8 w-full md:w-6/12 lg:w-3/12 shadow-xl">
+        <form action="#" method="post" class="bg-white rounded-lg p-8 w-full md:w-6/12 lg:w-3/12 shadow-xl" @submit.prevent="submit">
             <div class="mb-4">
                 <label for="email" class="block mb-2 text-gray-500 uppercase text-sm font-bold tracking-tight">
                     Email address
                 </label>
-                <input type="text" name="email" id="email" class="border-2 border-gray-400 rounded px-3 py-2 w-full">
+                <input type="text" name="email" id="email" class="border-2 border-gray-400 rounded px-3 py-2 w-full" v-model="form.email">
             </div>
             <div class="mb-6">
                 <label for="email" class="block mb-2 text-gray-500 uppercase text-sm font-bold tracking-tight">
                     Password
                 </label>
-                <input type="text" name="email" id="email" class="border-2 border-gray-400 rounded px-3 py-2 w-full">
+                <input type="text" name="email" id="email" class="border-2 border-gray-400 rounded px-3 py-2 w-full" v-model="form.password">
             </div>
             <div>
                 <button type="submit" class="w-full bg-blue-500 text-white px-6 py-3 rounded uppercase font-bold">
@@ -27,7 +27,28 @@
 </template>
 
 <script>
-    export default {
+    import { mapActions } from 'vuex'
 
+    export default {
+        data() {
+            return {
+                form: {
+                    email: '',
+                    password: ''
+                }
+            }
+        },
+
+        methods: {
+            ...mapActions({
+                signIn: 'auth/signIn'
+            }),
+
+            async submit () {
+                await this.signIn(this.form)
+
+                this.$router.replace({ name: 'home' })
+            }
+        }
     }
 </script>

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export default {
     namespaced: true,
 
@@ -18,6 +20,13 @@ export default {
 
     },
     actions: {
+        async signIn ({ commit }, credentials) {
+            await axios.get('/airlock/csrf-cookie')
+            await axios.post('/login', credentials)
+        },
 
+        async me ({ commit }) {
+            
+        }
     }
 }
