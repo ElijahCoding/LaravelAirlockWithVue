@@ -1,18 +1,9 @@
 <template>
-  <div>
-    <a href="" @click.prevent="login"></a>
+  <div id="app">
+    <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
-
-<script>
-  import axios from 'axios'
-  export default {
-    methods: {
-      async login () {
-        await axios.post('http://127.0.0.1:8000/login', {
-          email: 'alex'
-        })
-      }
-    }
-  }
-</script>
